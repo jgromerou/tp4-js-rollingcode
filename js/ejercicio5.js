@@ -52,17 +52,19 @@ let generaciones = [
 
 class Persona {
   constructor(nombre, edad, dni, genero, peso, altura, anionacimiento, cuil) {
-    (this.nombre = nombre),
-      (this.edad = edad),
-      (this.dni = dni),
-      (this.genero = genero),
-      (this.peso = peso),
-      (this.altura = altura),
-      (this.anionacimiento = anionacimiento),
-      (this.cuil = cuil);
+    this.nombre = nombre;
+    this.edad = edad;
+    this.dni = dni;
+    this.genero = genero;
+    this.peso = peso;
+    this.altura = altura;
+    this.anionacimiento = anionacimiento;
+    this.cuil = cuil;
   }
   mostrarGeneracion() {
-    const generacion = buscarGeneracion(this.anionacimiento);
+    let generacion = generaciones.find((element) =>
+      element.marcoTemporal.includes(this.anionacimiento)
+    );
     document.write(
       `Pertenece a la generación: ${generacion.nombre} y su rasgo característico es: ${generacion.rasgoCaracteristico}`
     );
@@ -93,14 +95,7 @@ class Persona {
   }
 }
 
-//funciones
-function buscarGeneracion(anionacimiento) {
-  let existeElementoAnionacimiento = generaciones.find((element) =>
-    element.marcoTemporal.includes(anionacimiento)
-  );
-  return existeElementoAnionacimiento;
-}
-
+//función
 mostrarDatosPersona = (persona) => {
   document.write(`<h2>Datos de ${persona.nombre}:</h2>`);
   document.write(`<ul>`);
@@ -155,5 +150,7 @@ const Juan = new Persona(
 
 //ejecutar funciones
 mostrarDatosPersona(Pedro);
+document.write('<hr>');
 mostrarDatosPersona(Maria);
+document.write('<hr>');
 mostrarDatosPersona(Juan);
