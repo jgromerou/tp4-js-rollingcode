@@ -27,8 +27,8 @@ class Contacto {
     this.telefono = telefono;
   }
   // set
-  set setNombre(isbn) {
-    this.isbn = isbn;
+  set setNombre(nombre) {
+    this.nombre = nombre;
   }
   set setTelefono(titulo) {
     this.titulo = titulo;
