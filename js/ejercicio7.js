@@ -19,142 +19,173 @@ ha eliminado o no por pantalla
 Crea un menú con opciones por consola para probar todas estas funcionalidades.
 */
 
-//Para usar el Menú Agenda hay que cancelar el primer prompt, abrir consola del navegador y refresh a la página.
-
 class Contacto {
   constructor(nombre, telefono) {
-    this.nombre = nombre;
-    this.telefono = telefono;
+    this._nombre = nombre;
+    this._telefono = telefono;
   }
   // set
-  set setNombre(nombre) {
-    this.nombre = nombre;
+  set nombre(nuevoNombre) {
+    if (nuevoNombre.length > 0) {
+      this._nombre = nuevoNombre;
+    }
   }
-  set setTelefono(titulo) {
-    this.titulo = titulo;
+  set telefono(nuevoTelefono) {
+    if (nuevoTelefono.length > 0) {
+      this._telefono = nuevoTelefono;
+    }
   }
 
   //get
-  get getNombre() {
-    return this.nombre;
+  get nombre() {
+    return this._nombre;
   }
-  get getTelefono() {
-    return this.telefono;
+  get telefono() {
+    return this._telefono;
   }
 }
 
 class Agenda {
-  agenda = [];
+  constructor(tamanio = 10) {
+    this._contactos = [];
+    this._tamanio = tamanio;
+  }
+
+  get contactos() {
+    return this._contactos;
+  }
+
+  set contactos(nuevoContacto) {
+    this._contactos.push(nuevoContacto);
+  }
+
+  get tamanio() {
+    return this._tamanio;
+  }
+
+  set tamanio(nuevoTamanio) {
+    if (nuevoTamanio > 0) {
+      this._tamanio = nuevoTamanio;
+    }
+  }
 
   //metodos
   //1- Añadir contacto nuevo a la agenda
   aniadirContacto(contacto) {
-    if (this.agenda.find((element) => element.nombre === contacto.nombre)) {
-      console.log(
-        `Ya existe un contacto con el nombre ${contacto.nombre}. Contacto rechazado`
-      );
-    } else {
-      if (this.agenda.length < 10) {
-        this.agenda.push(contacto);
-        console.log(`Registrado el contacto con el nombre ${contacto.nombre}`);
+    if (!this.agendaLlena()) {
+      if (!this.existeContacto(contacto.nombre)) {
+        this.contactos = contacto;
+        alert(`Registrado el contacto con el nombre ${contacto.nombre}`);
       } else {
-        console.log(
-          `Superaste la cantidad máxima de contactos de la agenda. Contacto rechazado`
-        );
+        alert(`Contacto rechazado.`);
       }
+    } else {
+      alert(
+        `Superaste la cantidad máxima de contactos de la agenda. Contacto rechazado`
+      );
     }
   }
 
   //2- Ver si existe un contacto
   existeContacto(nombre) {
-    const contactoBuscado = this.agenda.find((elem) => elem.nombre === nombre);
+    const contactoBuscado = this.contactos.find(
+      (element) => element._nombre === nombre
+    );
     if (contactoBuscado) {
-      console.log(
-        `Si existe el contacto con el nombre ${contactoBuscado.nombre}`
-      );
+      alert(`Si existe el contacto con el nombre ${contactoBuscado.nombre}`);
+      return true;
     } else {
-      console.log(`No existe el contacto con el nombre ${nombre}`);
+      alert(`No existe el contacto con el nombre ${nombre}`);
+      return false;
     }
   }
 
   //3- Listar Contactos de la agenda
   listarContactos() {
-    if (this.agenda.length === 0) {
-      console.log('La agenda está vacía.');
+    if (this.contactos.length === 0) {
+      alert('La agenda está vacía.');
     } else {
-      this.agenda.forEach((element) => console.log(element));
+      alert(JSON.stringify(this.contactos, null, 4));
     }
   }
 
   //4- Buscar Contacto en la agenda
   buscarContacto(nombre) {
-    const contactoBuscado = this.agenda.find((elem) => elem.nombre === nombre);
+    const contactoBuscado = this._contactos.find(
+      (elem) => elem.nombre === nombre
+    );
     if (contactoBuscado) {
-      console.log(
+      alert(
         `Si existe el contacto con el nombre ${contactoBuscado.nombre} y su teléfono es ${contactoBuscado.telefono}`
       );
     } else {
-      console.log(`No existe el contacto con el nombre ${nombre}`);
+      alert(`No existe el contacto con el nombre ${nombre}`);
     }
   }
 
   //5- Eliminar Contacto por el nombre
   eliminarContacto(nombre) {
-    if (this.agenda.length === 0) {
-      console.log('No hay contactos en la agenda.');
-    } else if (this.agenda.find((elem) => elem.nombre === nombre)) {
-      this.agenda = this.agenda.filter((element) => element.nombre !== nombre);
-      console.log(`El contacto fue elimiado correctamente`);
+    if (this.contactos.length === 0) {
+      alert('No hay contactos en la agenda.');
+    } else if (this.existeContacto(nombre)) {
+      this._contactos = this.contactos.filter(
+        (element) => element._nombre !== nombre
+      );
+      alert(`El contacto fue eliminado correctamente`);
     } else {
-      console.log(`No existe el contacto con el nombre ${nombre} a eliminar`);
+      alert(`No existe el contacto con el nombre ${nombre} a eliminar`);
     }
   }
 
-  //6- Ver si la agenda esta llena y 7- Ver si hay huecos libres en la Agenda
-  verAgendaLlenaYhuecosLibres() {
-    if (this.agenda.length === 10) {
-      console.log(`La Agenda está llena.`);
+  //6- Ver si la agenda esta llena y
+  agendaLlena() {
+    if (this.contactos.length === this.tamanio) {
+      alert(`La Agenda está llena.`);
+      return true;
     } else {
-      console.log(`La Agenda aun tiene huecos libres.`);
+      alert(`La Agenda no está llena.`);
+      return false;
+    }
+  }
+
+  //7- Ver si hay huecos libres en la Agenda
+  huecosLibres() {
+    if (this.contactos.length !== this.tamanio) {
+      alert(`La Agenda aun tiene huecos libres.`);
+      return true;
+    } else {
+      alert(`La Agenda no tiene huecos libres.`);
+      return false;
     }
   }
 }
 
 //inicializar
-const agenda = new Agenda();
-
-//MENU
-mostrarMenu = () => {
-  console.log('\n\t\tMENU AGENDA');
-  console.log('\t\t---- ------\n');
-  console.log('[1] -- Registrar Contacto');
-  console.log('[2] -- Existe Contacto');
-  console.log('[3] -- Listar Contacto');
-  console.log('[4] -- Buscar Contacto');
-  console.log('[5] -- Eliminar Contacto');
-  console.log('[6] -- Ver si la Agenda está llena');
-  console.log('[7] -- Ver si hay huecos libres en la Agenda');
-  console.log('[BOTON CANCELAR] -- TERMINAR PROGRAMA');
-};
+let agenda = new Agenda();
 
 //Variable
 let opcion = '';
 let contactoNuevoNombre = '';
 let contactoNuevoTelefono = '';
-mostrarMenu();
 do {
-  opcion = prompt('Ingrese una opción del Menú y presione Aceptar:');
+  //MENU
+  opcion = prompt(`Ingrese una opción del Menú y presione Aceptar:
+  [1] -- Registrar Contacto
+  [2] -- Existe Contacto
+  [3] -- Listar Contacto
+  [4] -- Buscar Contacto
+  [5] -- Eliminar Contacto
+  [6] -- Ver si la Agenda está llena
+  [7] -- Ver si hay huecos libres en la Agenda
+  [8] -- Modificar el tamaño de la Agenda
+  [BOTON CANCELAR] -- TERMINAR PROGRAMA
+  `);
 
   switch (opcion) {
     case '1':
-      const contactoNuevoNombre = prompt('Ingresa Nombre del nuevo contacto:');
-      const contactoNuevoTelefono = prompt(
-        'Ingresa Telefono nuevo del contacto:'
-      );
-      const nuevoContacto = new Contacto(
-        contactoNuevoNombre,
-        contactoNuevoTelefono
-      );
+      const nuevoNombre = prompt('Ingresa Nombre del nuevo contacto:');
+      const nuevoTelefono = prompt('Ingresa Telefono nuevo del contacto:');
+      const nuevoContacto = new Contacto(nuevoNombre, nuevoTelefono);
       agenda.aniadirContacto(nuevoContacto);
       break;
     case '2':
@@ -175,16 +206,30 @@ do {
       agenda.eliminarContacto(contactoaEliminar);
       break;
     case '6':
-      agenda.verAgendaLlenaYhuecosLibres();
+      agenda.agendaLlena();
       break;
     case '7':
-      agenda.verAgendaLlenaYhuecosLibres();
+      agenda.huecosLibres();
       break;
-
+    case '8':
+      const modificarTamanio = parseInt(
+        prompt('Ingrese el nuevo tamaño de la agenda:')
+      );
+      if (modificarTamanio <= agenda.contactos.length) {
+        alert(
+          `No es posible asignar un tamaño a la agenda menor o igual al actual que es: ${agenda.contactos.length}.`
+        );
+      } else {
+        agenda.tamanio = modificarTamanio;
+        alert(
+          `Se cambió correctamente el tamaño de la agenda a ${agenda.tamanio}`
+        );
+      }
+      break;
     case null:
-      console.log('\n\n\t\tFIN DE PROGRAMA');
+      alert('FIN DE PROGRAMA');
       break;
     default:
-      console.log('Opción inválida');
+      alert('Opción inválida');
   }
-} while (opcion != null);
+} while (confirm('¿Desea realizar otra operación?'));
