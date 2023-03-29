@@ -7,23 +7,52 @@ métodos "emitirSonido" para verificar que cada animal emite el sonido adecuado.
 */
 
 class Animal {
+  #nombre;
+  #edad;
   constructor(nombre, edad) {
-    this.nombre = nombre;
-    this.edad = edad;
+    this.#nombre = nombre;
+    this.#edad = edad;
   }
+  //getter y setter
+  set nombre(nuevoNombre) {
+    if (nuevoNombre.length > 0) {
+      this.#nombre = nuevoNombre;
+    }
+  }
+
+  get nombre() {
+    return this.#nombre;
+  }
+
+  set edad(nuevaEdad) {
+    if (nuevaEdad.length > 0) {
+      this.#edad = nuevaEdad;
+    }
+  }
+
+  get edad() {
+    return this.#edad;
+  }
+
+  //metodos
   emitirSonido() {
     document.write(`<p>El animal emite su sonido.</p>`);
   }
 }
 
 class Perro extends Animal {
+  constructor(nombre, edad) {
+    super(nombre, edad); //invoco al constructor del padre
+  }
   emitirSonido() {
-    document.write(`<p>¡Gua Guaaa!</p>`);
+    super.emitirSonido();
+    document.write(`<p>Los perros emiten el sonido: ¡Gua Guaaa!</p>`);
   }
 }
 class Gato extends Animal {
   emitirSonido() {
-    document.write(`<p>¡Miiiaaaauuuu!</p>`);
+    super.emitirSonido();
+    document.write(`<p>Los gatos emiten el sonido: ¡Miiiaaaauuuu!</p>`);
   }
 }
 
