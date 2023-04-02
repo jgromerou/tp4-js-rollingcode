@@ -12,12 +12,94 @@ Crear un objeto de tipo aeropuerto llamado "Aeropuerto Internacional", crear 3
 objetos aviones a diferentes destinos. Agregar los 3 aviones al aeropuerto, buscar
 un avión y usar el método abordar.
 */
-class Aeropuerto {
-  constructor(nombre, listaAviones) {
-    this.nombre = nombre;
-    this.listaAviones = listaAviones;
+
+class Avion {
+  #nombre;
+  #capacidad;
+  #destino;
+  #listaPasajeros;
+  constructor(nombre, capacidad, destino, listaPasajeros) {
+    this.#nombre = nombre;
+    this.#capacidad = capacidad;
+    this.#destino = destino;
+    this.#listaPasajeros = listaPasajeros;
+  }
+  //set
+  set nombre(nuevoNombre) {
+    if (nuevoNombre.length > 0) {
+      this.#nombre = nuevoNombre;
+    }
+  }
+  set capacidad(capacidad) {
+    if (capacidad.length > 0) {
+      this.#capacidad = capacidad;
+    }
+  }
+  set destino(nuevoDestino) {
+    if (nuevoDestino.length > 0) {
+      this.#destino = nuevoDestino;
+    }
+  }
+  set listaPasajeros(nuevaListaPasajeros) {
+    if (nuevaListaPasajeros.length > 0) {
+      this.#listaPasajeros = nuevaListaPasajeros;
+    }
   }
 
+  //get
+  get nombre() {
+    return this.#nombre;
+  }
+  get capacidad() {
+    return this.#capacidad;
+  }
+  get destino() {
+    return this.#destino;
+  }
+  get listaPasajeros() {
+    return this.#listaPasajeros;
+  }
+
+  abordar(nombre) {
+    if (this.listaPasajeros.length <= this.capacidad) {
+      document.write(`Puede abordar el pasajero ${nombre}.`);
+    } else {
+      document.write(
+        `Está lleno el avión, el pasajero ${nombre} no puede subir`
+      );
+    }
+  }
+}
+
+class Aeropuerto {
+  #nombre;
+  #listaAviones;
+  constructor(nombre, listaAviones) {
+    this.#nombre = nombre;
+    this.#listaAviones = listaAviones;
+  }
+
+  //set
+  set nombre(nuevoNombre) {
+    if (nuevoNombre.length > 0) {
+      this.#nombre = nuevoNombre;
+    }
+  }
+  set listaAviones(nuevaListaAviones) {
+    if (nuevaListaAviones.length > 0) {
+      this.#listaAviones = nuevaListaAviones;
+    }
+  }
+
+  //get
+  get nombre() {
+    return this.#nombre;
+  }
+  get listaAviones() {
+    return this.#listaAviones;
+  }
+
+  //método agregarAvion
   agregarAvion(avion) {
     if (this.listaAviones.find((element) => element.nombre === avion.nombre)) {
       document.write(
@@ -41,25 +123,6 @@ class Aeropuerto {
       );
     } else {
       document.write(`<p>No existe el avion con el nombre ${nombre}</p>`);
-    }
-  }
-}
-
-class Avion {
-  constructor(nombre, capacidad, destino, listaPasajeros) {
-    this.nombre = nombre;
-    this.capacidad = capacidad;
-    this.destino = destino;
-    this.listaPasajeros = listaPasajeros;
-  }
-
-  abordar(nombre) {
-    if (this.listaPasajeros.length <= this.capacidad) {
-      document.write(`Puede abordar el pasajero ${nombre}.`);
-    } else {
-      document.write(
-        `Está lleno el avión, el pasajero ${nombre} no puede subir`
-      );
     }
   }
 }
