@@ -51,16 +51,91 @@ let generaciones = [
 ];
 
 class Persona {
+  #nombre;
+  #edad;
+  #dni;
+  #genero;
+  #peso;
+  #altura;
+  #anionacimiento;
+  #cuil;
   constructor(nombre, edad, dni, genero, peso, altura, anionacimiento, cuil) {
-    this.nombre = nombre;
-    this.edad = edad;
-    this.dni = dni;
-    this.genero = genero;
-    this.peso = peso;
-    this.altura = altura;
-    this.anionacimiento = anionacimiento;
-    this.cuil = cuil;
+    this.#nombre = nombre;
+    this.#edad = edad;
+    this.#dni = dni;
+    this.#genero = genero;
+    this.#peso = peso;
+    this.#altura = altura;
+    this.#anionacimiento = anionacimiento;
+    this.#cuil = cuil;
   }
+  //set
+  set nombre(nuevoNombre) {
+    if (nuevoNombre > 0) {
+      this.#nombre = nuevoNombre;
+    }
+  }
+  set edad(nuevaEdad) {
+    if (nuevaEdad > 0) {
+      this.#edad = nuevaEdad;
+    }
+  }
+  set dni(nuevoDni) {
+    if (nuevoDni > 0) {
+      this.#dni = nuevoDni;
+    }
+  }
+  set genero(nuevoGenero) {
+    if (nuevoGenero > 0) {
+      this.#genero = nuevoGenero;
+    }
+  }
+  set peso(nuevoPeso) {
+    if (nuevoPeso > 0) {
+      this.#peso = nuevoPeso;
+    }
+  }
+  set altura(nuevaAltura) {
+    if (nuevaAltura > 0) {
+      this.#altura = nuevaAltura;
+    }
+  }
+  set anionacimiento(nuevoAnionacimiento) {
+    if (nuevoAnionacimiento > 0) {
+      this.#anionacimiento = nuevoDni;
+    }
+  }
+  set cuil(nuevoCuil) {
+    if (nuevoCuil > 0) {
+      this.#cuil = nuevoCuil;
+    }
+  }
+  //get
+  get nombre() {
+    return this.#nombre;
+  }
+  get edad() {
+    return this.#edad;
+  }
+  get dni() {
+    return this.#dni;
+  }
+  get genero() {
+    return this.#genero;
+  }
+  get peso() {
+    return this.#peso;
+  }
+  get altura() {
+    return this.#altura;
+  }
+  get anionacimiento() {
+    return this.#anionacimiento;
+  }
+  get cuil() {
+    return this.#cuil;
+  }
+
   mostrarGeneracion() {
     let generacion = generaciones.find((element) =>
       element.marcoTemporal.includes(this.anionacimiento)
