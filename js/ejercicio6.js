@@ -1,36 +1,40 @@
 class Libro {
+  #isbn;
+  #titulo;
+  #autor;
+  #nroPaginas;
   constructor(isbn, titulo, autor, nroPaginas) {
-    this.isbn = isbn;
-    this.titulo = titulo;
-    this.autor = autor;
-    this.nroPaginas = nroPaginas;
+    this.#isbn = isbn;
+    this.#titulo = titulo;
+    this.#autor = autor;
+    this.#nroPaginas = nroPaginas;
   }
   // set
-  set setIsbn(isbn) {
-    this.isbn = isbn;
+  set isbn(nuevoIsbn) {
+    this.#isbn = nuevoIsbn;
   }
-  set setTiulo(titulo) {
-    this.titulo = titulo;
+  set titulo(nuevoTitulo) {
+    this.#titulo = nuevoTitulo;
   }
-  set setAutor(autor) {
-    this.autor = autor;
+  set autor(nuevoAutor) {
+    this.#autor = nuevoAutor;
   }
-  set setNroPaginas(nroPaginas) {
-    this.nroPaginas = nroPaginas;
+  set nroPaginas(nuevoNroPaginas) {
+    this.#nroPaginas = nuevoNroPaginas;
   }
 
   //get
-  get getIsbn() {
-    return this.isbn;
+  get isbn() {
+    return this.#isbn;
   }
-  get getTiulo() {
-    return this.titulo;
+  get titulo() {
+    return this.#titulo;
   }
-  get getAutor() {
-    return this.autor;
+  get autor() {
+    return this.#autor;
   }
-  get getNroPaginas() {
-    return this.nroPaginas;
+  get nroPaginas() {
+    return this.#nroPaginas;
   }
 
   mostrarLibro() {
@@ -42,13 +46,13 @@ class Libro {
 
 //función
 function compararNropaginasDosLibros(l1, l2) {
-  if (l1.getNroPaginas > l2.getNroPaginas) {
+  if (l1.nroPaginas > l2.nroPaginas) {
     return document.write(
-      `<p>${l1.getTiulo} tiene más números de páginas que ${l2.getTiulo}</p>`
+      `<p>${l1.titulo} tiene más números de páginas que ${l2.titulo}</p>`
     );
-  } else if (l1.getNroPaginas < l2.getNroPaginas) {
+  } else if (l1.nroPaginas < l2.nroPaginas) {
     return document.write(
-      `<p>${l2.getTiulo} tiene más números de páginas que ${l1.getTiulo}</p>`
+      `<p>${l2.titulo} tiene más números de páginas que ${l1.titulo}</p>`
     );
   } else {
     return document.write(
