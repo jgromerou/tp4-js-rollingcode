@@ -5,11 +5,42 @@ mostrar sus propiedades, calcular el perímetro y el área.
 */
 
 class Producto {
+  #codigo;
+  #nombre;
+  #precio;
   constructor(codigo, nombre, precio) {
-    this.codigo = codigo;
-    this.nombre = nombre;
-    this.precio = precio;
+    this.#codigo = codigo;
+    this.#nombre = nombre;
+    this.#precio = precio;
   }
+  //set
+  set codigo(nuevoCodigo) {
+    if (nuevoCodigo > 0) {
+      this.#codigo = nuevoCodigo;
+    }
+  }
+  set nombre(nuevoNombre) {
+    if (nuevoNombre > 0) {
+      this.#nombre = nuevoNombre;
+    }
+  }
+  set precio(nuevoPrecio) {
+    if (nuevoPrecio > 0) {
+      this.#precio = nuevoPrecio;
+    }
+  }
+
+  //get
+  get codigo() {
+    return this.#codigo;
+  }
+  get nombre() {
+    return this.#nombre;
+  }
+  get precio() {
+    return this.#precio;
+  }
+
   imprimeDatos() {
     document.write('<h2>Datos del Producto:</h2>');
     document.write('<ul>');
