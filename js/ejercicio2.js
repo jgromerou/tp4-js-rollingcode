@@ -10,10 +10,33 @@ Un método informar() que retorne la información del estado de la cuenta.
 Utiliza este objeto para mostrar la descripción, ingresar y extraer dinero y volver a mostrar la descripción del estado de la cuenta.
 */
 class Cuenta {
+  #titular;
+  #saldo;
   constructor(titular, saldo) {
-    this.titular = titular;
-    this.saldo = saldo;
+    this.#titular = titular;
+    this.#saldo = saldo;
   }
+
+  //set
+  set titular(nuevoTitular) {
+    if (nuevoTitular > 0) {
+      this.#titular = nuevoTitular;
+    }
+  }
+  set saldo(nuevoSaldo) {
+    if (nuevoSaldo > 0) {
+      this.#saldo = nuevoSaldo;
+    }
+  }
+
+  //get
+  get titular() {
+    return this.#titular;
+  }
+  get saldo() {
+    return this.#saldo;
+  }
+
   ingresar(cantidad) {
     this.saldo += cantidad;
     document.write(
