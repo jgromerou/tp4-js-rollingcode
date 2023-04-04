@@ -5,10 +5,32 @@ mostrar sus propiedades, calcular el perímetro y el área.
 */
 
 class Rectangulo {
+  #alto;
+  #ancho;
   constructor(alto, ancho) {
-    this.alto = alto;
-    this.ancho = ancho;
+    this.#alto = alto;
+    this.#ancho = ancho;
   }
+  //set
+  set alto(nuevoAlto) {
+    if (nuevoAlto > 0) {
+      this.#alto = nuevoAlto;
+    }
+  }
+  set ancho(nuevoAncho) {
+    if (nuevoAncho > 0) {
+      this.#ancho = nuevoAncho;
+    }
+  }
+
+  //get
+  get alto() {
+    return this.#alto;
+  }
+  get ancho() {
+    return this.#ancho;
+  }
+
   calcularPerimetro() {
     let resultado = 0;
     resultado = 2 * (this.alto + this.ancho);
