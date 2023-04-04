@@ -20,52 +20,56 @@ Crea un menú con opciones por consola para probar todas estas funcionalidades.
 */
 
 class Contacto {
+  #nombre;
+  #telefono;
   constructor(nombre, telefono) {
-    this._nombre = nombre;
-    this._telefono = telefono;
+    this.#nombre = nombre;
+    this.#telefono = telefono;
   }
   // set
   set nombre(nuevoNombre) {
     if (nuevoNombre.length > 0) {
-      this._nombre = nuevoNombre;
+      this.#nombre = nuevoNombre;
     }
   }
   set telefono(nuevoTelefono) {
     if (nuevoTelefono.length > 0) {
-      this._telefono = nuevoTelefono;
+      this.#telefono = nuevoTelefono;
     }
   }
 
   //get
   get nombre() {
-    return this._nombre;
+    return this.#nombre;
   }
   get telefono() {
-    return this._telefono;
+    return this.#telefono;
   }
 }
 
 class Agenda {
+  #contactos;
+  #tamanio;
   constructor(tamanio = 10) {
-    this._contactos = [];
-    this._tamanio = tamanio;
+    this.#contactos = [];
+    this.#tamanio = tamanio;
   }
 
   get contactos() {
-    return this._contactos;
+    return this.#contactos;
   }
 
-  set contactos(nuevoContacto) {
-    this._contactos.push(nuevoContacto);
+  set setContactos(nuevoContacto) {
+    this.#contactos.push(nuevoContacto);
   }
 
   get tamanio() {
-    return this._tamanio;
+    return this.#tamanio;
   }
 
   set tamanio(nuevoTamanio) {
     if (nuevoTamanio > 0) {
-      this._tamanio = nuevoTamanio;
+      this.#tamanio = nuevoTamanio;
     }
   }
 
@@ -74,7 +78,7 @@ class Agenda {
   aniadirContacto(contacto) {
     if (!this.agendaLlena()) {
       if (!this.existeContacto(contacto.nombre)) {
-        this.contactos = contacto;
+        this.setContactos = contacto;
         alert(`Registrado el contacto con el nombre ${contacto.nombre}`);
       } else {
         alert(`Contacto rechazado.`);
@@ -89,7 +93,7 @@ class Agenda {
   //2- Ver si existe un contacto
   existeContacto(nombre) {
     const contactoBuscado = this.contactos.find(
-      (element) => element._nombre === nombre
+      (element) => element.nombre === nombre
     );
     if (contactoBuscado) {
       alert(`Si existe el contacto con el nombre ${contactoBuscado.nombre}`);
@@ -105,13 +109,15 @@ class Agenda {
     if (this.contactos.length === 0) {
       alert('La agenda está vacía.');
     } else {
-      alert(JSON.stringify(this.contactos, null, 4));
+      this.contactos.forEach((contacto) => {
+        alert(` * Nombre: ${contacto.nombre} - Telefono: ${contacto.telefono}`);
+      });
     }
   }
 
   //4- Buscar Contacto en la agenda
   buscarContacto(nombre) {
-    const contactoBuscado = this._contactos.find(
+    const contactoBuscado = this.contactos.find(
       (elem) => elem.nombre === nombre
     );
     if (contactoBuscado) {
@@ -128,8 +134,8 @@ class Agenda {
     if (this.contactos.length === 0) {
       alert('No hay contactos en la agenda.');
     } else if (this.existeContacto(nombre)) {
-      this._contactos = this.contactos.filter(
-        (element) => element._nombre !== nombre
+      this.#contactos = this.contactos.filter(
+        (element) => element.nombre !== nombre
       );
       alert(`El contacto fue eliminado correctamente`);
     } else {
@@ -178,7 +184,6 @@ do {
   [6] -- Ver si la Agenda está llena
   [7] -- Ver si hay huecos libres en la Agenda
   [8] -- Modificar el tamaño de la Agenda
-  [BOTON CANCELAR] -- TERMINAR PROGRAMA
   `);
 
   switch (opcion) {
@@ -226,10 +231,8 @@ do {
         );
       }
       break;
-    case null:
-      alert('FIN DE PROGRAMA');
-      break;
     default:
       alert('Opción inválida');
+      break;
   }
 } while (confirm('¿Desea realizar otra operación?'));
